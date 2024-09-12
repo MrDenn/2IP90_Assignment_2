@@ -23,72 +23,41 @@ class KingsPalindromeList {
 
 
     /*
-      Function that returns:
-        'S' if the given number is already a palindrome
-        'L' if the left half of palindrome is larger than the reversed right half
-        'R' if the reversed right half of the palindrome is larger than the left half
+       Function that checks whether the given number is a palindrome
+       and if not, turns the given number into a palindrome
      */
-    public char TestPalindrome (String inputNum) {
+    public String FixPalindrome (String inputNum) {
         System.out.println("testing numper " + inputNum);
+        //int leftSideEnd = ;
+        int leftEndIndex = inputNum.length() / 2; // Index denoting end of number's left half
+        int rightStartIndex = inputNum.length() / 2 + inputNum.length() % 2;
+            // Index denoting the first element number's right half
 
         if (inputNum.length() == 1) {
-            return 'S';
+            return inputNum;
         }
 
-        int rightSide = Integer.valueOf(inputNum.substring(inputNum.length() / 2 + inputNum.length() % 2, inputNum.length()));
-        int leftSideRev = Integer.valueOf(new StringBuilder(inputNum.substring(0, inputNum.length() / 2)).reverse().toString());
-
-        System.out.println("right side: " + rightSide + " left side rev: " + leftSideRev);
+        int rightSide = Integer.parseInt(
+                inputNum.substring(rightStartIndex)
+        );
+        int leftSideRev = Integer.parseInt(
+                new StringBuilder(inputNum.substring(0, leftEndIndex)).reverse().toString()
+         );
 
         if (leftSideRev == rightSide) {
-            return 'S';
-        } else if (leftSideRev > rightSide) {
-            return 'L';
+            return inputNum;
         } else {
-            return 'R';
+            String leftSide = inputNum.substring(0, rightStartIndex);
+
+            if (leftSideRev < rightSide) {
+                leftSide = String.valueOf(Integer.parseInt(leftSide) + 1);
+            }
+
+            StringBuilder rightSideAns = new StringBuilder(leftSide.substring(0, leftEndIndex));
+            rightSideAns.reverse();
+            return (leftSide + rightSideAns);
         }
     }
-
-    /*
-       Function that turns the given number (in string form) into a palindrome
-     */
-    /*String MakePalindrome (String inputNum) {
-
-        if (this.IsPalindrome(inputNum)) {
-            return inputNum; // If number is already a palindrome, no action is needed, number itself is returned
-        } else {
-            char bigger = 'S'; // Indicator of which half of the palindrome is bigger: 'R' or 'L'
-            char[] palindrome = inputNum.toCharArray();
-
-            for (int i = 0; (i < palindrome.length / 2) && (bigger == 'S'); i++) {
-                int posLeft = palindrome.length / 2 - i - 1;
-                int posRight = palindrome.length / 2 + palindrome.length % 2 +  i;
-
-                if (palindrome[posLeft] > palindrome[posRight]) {
-                    bigger = 'L'; // Left side of palindrome is bigger
-                } else if (palindrome[posLeft] < palindrome[posRight]) {
-                    bigger = 'R'; // Right side of palindrome is bigger
-                }
-            }
-
-            if (bigger == 'R'){
-                palindrome[palindrome.length / 2 - 1] += 1;
-
-            }
-
-            StringBuilder answer = new StringBuilder(inputNum); // Variable to store the final palindrome in
-
-            if (bigger == 'L'){
-                for (int i = 0; i < inputNum.length() / 2; i++) {
-                    answerNum.replace(i, inputNum.charAt(i));
-                }
-            }
-        }
-
-
-
-        return "nada";
-    }*/
 
     /*
         Function that returns the number of elements of the largest magic set
@@ -96,7 +65,7 @@ class KingsPalindromeList {
      */
     int LargestMagicSetElementCount () {
         return 0; // заглушка
-    };
+    }
 
     /*
         Function that returns the array of palindromes from which the largest magic set is formed in ascending order
@@ -105,7 +74,7 @@ class KingsPalindromeList {
      */
     int LargestMagicSet () {
         return 0; // заглушка, неправильный тип возврата функции
-    };
+    }
 
     public static void main (String[] args) {
 
@@ -120,7 +89,7 @@ class KingsPalindromeList {
         }
 
         for (int i = 0; i < palindromes.numbersCount; i++) {
-            System.out.println("for num " + (i + 1) + ":" + palindromes.TestPalindrome(palindromes.numbers[i]));
+            System.out.println(palindromes.FixPalindrome(palindromes.numbers[i]));
         }
 
 
