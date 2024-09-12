@@ -6,6 +6,7 @@ import java.util.Scanner;
  *
  * Usage:
  * TODO: Documentation
+ *
  * END TODO
  *
  * @author <Denis Shaikhatarov>
@@ -21,12 +22,11 @@ class KingsPalindromeList {
     String[] numbers; // An array of given numbers stored as Strings
 
 
-
     /*
        Function that checks whether the given number is a palindrome
        and if not, turns the given number into a palindrome
      */
-    private String FixPalindrome (String inputNum) {
+    public String FixPalindrome (String inputNum) {
         System.out.println("testing numper " + inputNum);
         //int leftSideEnd = ;
         int leftEndIndex = inputNum.length() / 2; // Index denoting end of number's left half
@@ -37,7 +37,8 @@ class KingsPalindromeList {
             return inputNum;
         }
 
-        int rightSide = Integer.parseInt(inputNum.substring(rightStartIndex)
+        int rightSide = Integer.parseInt(
+                inputNum.substring(rightStartIndex)
         );
         int leftSideRev = Integer.parseInt(
                 new StringBuilder(inputNum.substring(0, leftEndIndex)).reverse().toString()
@@ -55,25 +56,6 @@ class KingsPalindromeList {
             StringBuilder rightSideAns = new StringBuilder(leftSide.substring(0, leftEndIndex));
             rightSideAns.reverse();
             return (leftSide + rightSideAns);
-        }
-    }
-
-
-    /*
-       Function that for all elements of this object executes FixPalindrome
-     */
-    public void FixList () {
-        for (int i=0; i < this.numbersCount; i++) {
-            this.numbers[i] = FixPalindrome(this.numbers[i]);
-        }
-    }
-
-    public void Print () {
-        if (this.operationType == 1) {
-            for (int i=0; i < this.numbersCount; i++) {
-                //System.out.println("Number " + (i + 1) + " is turned into: " + this.numbers[i]);
-                System.out.println();
-            }
         }
     }
 
@@ -106,9 +88,9 @@ class KingsPalindromeList {
             palindromes.numbers[i] = scanner.next(); // Recording numbers to the list
         }
 
-        //for (int i = 0; i < palindromes.numbersCount; i++) {
-        //    System.out.println(palindromes.FixPalindrome(palindromes.numbers[i]));
-        //}
+        for (int i = 0; i < palindromes.numbersCount; i++) {
+            System.out.println(palindromes.FixPalindrome(palindromes.numbers[i]));
+        }
 
 
 
