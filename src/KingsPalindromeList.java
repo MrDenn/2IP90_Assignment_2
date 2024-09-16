@@ -56,32 +56,30 @@ class KingsPalindromeList {
      */
     private String fixPalindrome(String inputNum) {
 
-        int leftEndIndex = inputNum.length() / 2; 
-        // Index denoting end of number's left half
-        int rightStartIndex = inputNum.length() / 2 + inputNum.length() % 2;
-        // Index denoting the first element number's right half
+        int centerIndex = inputNum.length() / 2;
+        // Index denoting the center of the given number
 
         if (inputNum.length() == 1) {
             return inputNum;
         }
 
         int rightSide = Integer.parseInt(
-                inputNum.substring(rightStartIndex)
+                inputNum.substring(centerIndex + 1)
         );
         int leftSideRev = Integer.parseInt(
-                new StringBuilder(inputNum.substring(0, leftEndIndex)).reverse().toString()
+                new StringBuilder(inputNum.substring(0, centerIndex)).reverse().toString()
         );
 
         if (leftSideRev == rightSide) {
             return inputNum;
         } else {
-            String leftSide = inputNum.substring(0, rightStartIndex);
+            String leftSide = inputNum.substring(0, centerIndex + 1);
 
             if (leftSideRev < rightSide) {
                 leftSide = String.valueOf(Integer.parseInt(leftSide) + 1);
             }
 
-            StringBuilder rightSideAns = new StringBuilder(leftSide.substring(0, leftEndIndex));
+            StringBuilder rightSideAns = new StringBuilder(leftSide.substring(0, centerIndex));
             rightSideAns.reverse();
             return (leftSide + rightSideAns);
         }
@@ -93,9 +91,7 @@ class KingsPalindromeList {
      */
     private String[] searchMagicSet() {
 
-        String[] numSplit = new String[numbers.length]; // Array of right halves of each number
-
-        // Arrays.sort(this.numbers);
+        String[] numSplit = new String[numbers.length]; // Array of right half of each number
 
         Arrays.sort(this.numbers, new Comparator<String>() {
             @Override
@@ -118,12 +114,9 @@ class KingsPalindromeList {
             }
         }
 
-
         for (int i = numbersCount - 1; (i >= 0) && (numSplit[i].length() > maxLength); i--) {
             List<String> currentList = new ArrayList<String> ();
             currentList.add(this.numbers[i]);
-
-            // System.out.println("running tests number " + this.numbers[i]);
 
             for (int j = 1; j < numSplit[i].length(); j++) {
                 boolean found = false;
@@ -131,7 +124,6 @@ class KingsPalindromeList {
                 for (int k = i - 1; (k >= 0) && !found; k--) {
                     if (numSplit[k].equals(numSplit[i].substring(0, numSplit[i].length() - j))) {
                         found = true;
-                        // System.out.println("found number " + numSplit[i].substring(0, numSplit[i].length() - j));
                         currentList.add(this.numbers[k]);
                     }
                 }
