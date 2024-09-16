@@ -162,6 +162,8 @@ class KingsPalindromeList {
             default:
                 System.err.println("Unknown operation type: " + this.operationType);
         }
+
+        System.out.println();
     }
 
     /**
