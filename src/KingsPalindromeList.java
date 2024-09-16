@@ -1,14 +1,22 @@
-import java.util.Arrays;
-import java.util.Scanner;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * Reads a list of numbers, and can reconstruct the corresponding list of Palindromes,
  * produce the size of the largest magic set, and the content of that magic set.
  *
  * Usage:
+ * TODO: Documentation
+ * On the first line enter 1, 2 or 3 to indicate which task needs to be solved:
+ * 1 for printing the correct palindrome list.
+ * 2 for printing the size of the largest magic set.
+ * 3 for printing the largest magic set.
+ * On the second line enter the number of elements in the list received from the king's advisor.
+ * On the third line enter the numbers from the list, separated by a space.
+ * END TODO
  *
  * @author <Denis Shaikhatarov>
  * @ID <2110415>
@@ -22,27 +30,34 @@ class KingsPalindromeList {
     int numbersCount; // Number of values to be processed as palindromes
     String[] numbers; // An array of given numbers stored as Strings
 
-    /*
-       Custom constructor for object that reads needed data from user
+    /**
+       Custom constructor for object that reads needed data from user.
+       @param scanner the scanner to read user input.
      */
     public KingsPalindromeList(Scanner scanner) {
 
-        this.operationType = scanner.nextInt(); // Recording type of task that needs to be solved
-        this.numbersCount = scanner.nextInt(); // Recording number of values to be read from keyboard
-        this.numbers = new String[this.numbersCount]; // Initialising "numbers" array with given length
+        this.operationType = scanner.nextInt(); 
+        // Recording type of task that needs to be solved
+        this.numbersCount = scanner.nextInt(); 
+        // Recording number of values to be read from keyboard
+        this.numbers = new String[this.numbersCount]; 
+        // Initialising "numbers" array with given length
 
         for (int i = 0; i < this.numbersCount; i++) {
             this.numbers[i] = scanner.next(); // Recording numbers to the list
         }
     }
 
-    /*
-       Function that checks whether the given number is a palindrome
-       and if not, turns the given number into a palindrome
+    /**
+       Method that checks whether the given number is a palindrome
+       and if not, turns the given number into a palindrome.
+       @param inputNum the given number.
+       @return palindrome.
      */
     private String fixPalindrome(String inputNum) {
 
-        int leftEndIndex = inputNum.length() / 2; // Index denoting end of number's left half
+        int leftEndIndex = inputNum.length() / 2; 
+        // Index denoting end of number's left half
         int rightStartIndex = inputNum.length() / 2 + inputNum.length() % 2;
         // Index denoting the first element number's right half
 
@@ -72,9 +87,9 @@ class KingsPalindromeList {
         }
     }
 
-    /*
-        Function that returns the number of elements of the largest magic set
-        that can be obtained from list of palindromes
+    /**
+        Method that returns the largest magic set that can be obtained from list of palindromes.
+        @return maxList the list containing the largest magic set.
      */
     private String[] searchMagicSet() {
 
@@ -108,7 +123,7 @@ class KingsPalindromeList {
             List<String> currentList = new ArrayList<String> ();
             currentList.add(this.numbers[i]);
 
-                //System.out.println("running tests number " + this.numbers[i]);
+            // System.out.println("running tests number " + this.numbers[i]);
 
             for (int j = 1; j < numSplit[i].length(); j++) {
                 boolean found = false;
@@ -116,55 +131,85 @@ class KingsPalindromeList {
                 for (int k = i - 1; (k >= 0) && !found; k--) {
                     if (numSplit[k].equals(numSplit[i].substring(0, numSplit[i].length() - j))) {
                         found = true;
-                            //System.out.println("found number " + numSplit[i].substring(0, numSplit[i].length() - j));
+                        // System.out.println("found number " + numSplit[i].substring(0, numSplit[i].length() - j));
                         currentList.add(this.numbers[k]);
                     }
                 }
             }
 
-            if ((currentList.size() > maxList.length) || (maxList[0] == "start")) {
+            if ((currentList.size() > maxList.length) || (maxList[0].equals("start"))) {
                 maxList = new String[currentList.size()];
                 for (int j = 0; j < currentList.size(); j++) {
                     maxList[j] = currentList.get(currentList.size() - 1 - j);
                 }
             }
-
         }
 
         return maxList;
     }
 
-    /*
-       Function that executes the functionality defined by operationType
+    /**
+       Method that executes the functionality defined by operationType.
      */
     public void run() {
 
         for (int i = 0; i < this.numbersCount; i++) {
             this.numbers[i] = fixPalindrome(this.numbers[i]);
         }
-
-        if (this.operationType == 1) {
-            for (int i = 0; i < this.numbersCount; i++) {
-                System.out.print(this.numbers[i] + " ");
-            }
-        } else {
-            String[] ansArray = this.searchMagicSet();
-
-            if (this.operationType == 2) {
-                System.out.print(ansArray.length);
-            } else if (this.operationType == 3) {
-                for (int i = 0; i < ansArray.length; i++) {
-                    System.out.print(ansArray[i] + " ");
-                }
-            }
+        
+        switch (this.operationType) {
+            case 1:
+                printNumbers();
+                break;
+            case 2:
+                printMagicSetSize();
+                break;
+            case 3:
+                printMagicSetElements();
+                break;
+            default:
+                System.err.println("Unknown operation type: " + this.operationType);
         }
     }
+    
+    /**
+     * Method that prints numbers from the correct palindrome list.
+     */
+    private void printNumbers() {
+
+        for (String number : this.numbers) {
+            System.out.print(number + " ");
+        }
+        System.out.println(); 
+    }
+    
+    /**
+     * Method that prints magic set size.
+     */
+    private void printMagicSetSize() {
+
+        String[] ansArray = this.searchMagicSet();
+        System.out.print(ansArray.length);
+    }
+    
+    /**
+     * Method that prints the magic set list.
+     */
+    private void printMagicSetElements() {
+
+        String[] ansArray = this.searchMagicSet();
+        for (String element : ansArray) {
+            System.out.print(element + " ");
+        }
+        System.out.println(); 
+    }    
 
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in); // Creating scanner to read user input
+        Scanner scanner = new Scanner(System.in); 
+        // Creating scanner to read user input
         KingsPalindromeList palindromes = new KingsPalindromeList(scanner);
-            // Creating instance of custom class
+        // Creating instance of custom class
         palindromes.run();
     }
 }
