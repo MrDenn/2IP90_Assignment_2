@@ -57,7 +57,7 @@ class KingsPalindromeList {
     private String fixPalindrome(String inputNum) {
 
         int centerIndex = inputNum.length() / 2;
-        // Index denoting the center of the given number
+        // Index denoting the center digit of the given number
 
         if (inputNum.length() == 1) {
             return inputNum;
