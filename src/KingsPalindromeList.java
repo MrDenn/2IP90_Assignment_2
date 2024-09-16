@@ -31,16 +31,16 @@ class KingsPalindromeList {
     String[] numbers; // An array of given numbers stored as Strings
 
     /**
-       Custom constructor for object that reads needed data from user.
-       @param scanner the scanner to read user input.
+     Custom constructor for object that reads needed data from user.
+     @param scanner the scanner to read user input.
      */
     public KingsPalindromeList(Scanner scanner) {
 
-        this.operationType = scanner.nextInt(); 
+        this.operationType = scanner.nextInt();
         // Recording type of task that needs to be solved
-        this.numbersCount = scanner.nextInt(); 
+        this.numbersCount = scanner.nextInt();
         // Recording number of values to be read from keyboard
-        this.numbers = new String[this.numbersCount]; 
+        this.numbers = new String[this.numbersCount];
         // Initialising "numbers" array with given length
 
         for (int i = 0; i < this.numbersCount; i++) {
@@ -49,10 +49,10 @@ class KingsPalindromeList {
     }
 
     /**
-       Method that checks whether the given number is a palindrome
-       and if not, turns the given number into a palindrome.
-       @param inputNum the given number.
-       @return palindrome.
+     Method that checks whether the given number is a palindrome
+     and if not, turns the given number into a palindrome.
+     @param inputNum the given number.
+     @return palindrome.
      */
     private String fixPalindrome(String inputNum) {
 
@@ -86,8 +86,8 @@ class KingsPalindromeList {
     }
 
     /**
-        Method that returns the largest magic set that can be obtained from list of palindromes.
-        @return maxList the list containing the largest magic set.
+     Method that returns the largest magic set that can be obtained from list of palindromes.
+     @return maxList the list containing the largest magic set.
      */
     private String[] searchMagicSet() {
 
@@ -141,14 +141,14 @@ class KingsPalindromeList {
     }
 
     /**
-       Method that executes the functionality defined by operationType.
+     Method that executes the functionality defined by operationType.
      */
     public void run() {
 
         for (int i = 0; i < this.numbersCount; i++) {
             this.numbers[i] = fixPalindrome(this.numbers[i]);
         }
-        
+
         switch (this.operationType) {
             case 1:
                 printNumbers();
@@ -163,7 +163,7 @@ class KingsPalindromeList {
                 System.err.println("Unknown operation type: " + this.operationType);
         }
     }
-    
+
     /**
      * Method that prints numbers from the correct palindrome list.
      */
@@ -172,9 +172,8 @@ class KingsPalindromeList {
         for (String number : this.numbers) {
             System.out.print(number + " ");
         }
-        System.out.println(); 
     }
-    
+
     /**
      * Method that prints magic set size.
      */
@@ -183,7 +182,7 @@ class KingsPalindromeList {
         String[] ansArray = this.searchMagicSet();
         System.out.print(ansArray.length);
     }
-    
+
     /**
      * Method that prints the magic set list.
      */
@@ -193,12 +192,11 @@ class KingsPalindromeList {
         for (String element : ansArray) {
             System.out.print(element + " ");
         }
-        System.out.println(); 
-    }    
+    }
 
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in); 
+        Scanner scanner = new Scanner(System.in);
         // Creating scanner to read user input
         KingsPalindromeList palindromes = new KingsPalindromeList(scanner);
         // Creating instance of custom class
